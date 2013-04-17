@@ -1,3 +1,4 @@
+<% if user_signed_in? %>
 <%- model_class = Link -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
@@ -5,7 +6,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:in_url) %></th>
       <th><%= model_class.human_attribute_name(:out_url) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -15,7 +15,6 @@
   <tbody>
     <% @links.each do |link| %>
       <tr>
-        <td><%= link_to link.id, link_path(link) %></td>
         <td><%= link.in_url %></td>
         <td><%= link.out_url %></td>
         <td><%=l link.created_at %></td>
@@ -36,3 +35,10 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_link_path,
             :class => 'btn btn-primary' %>
+            <% else %>
+              <%= link_to t('.new', :default => t("helpers.links.new")),
+            new_link_path,
+            :class => 'btn btn-primary' %>
+            <%end %>
+
+  

@@ -1,4 +1,10 @@
 <%= form_for @link, :html => { :class => 'form-horizontal' } do |f| %>
+      <% @link.errors.full_messages.each do |msg| %>
+        <div class="alert alert-error">
+        <strong>Error! </strong><%= msg %>
+      </div>
+          
+      <% end %>
   <div class="control-group">
     <%= f.label :in_url, :class => 'control-label' %>
     <div class="controls">

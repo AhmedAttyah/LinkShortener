@@ -3,8 +3,9 @@ Linkshortner::Application.routes.draw do
 
   resources :links
   root to: 'links#index'
-  match ':in_url' => 'links#go'
   devise_for :users
+  match ':in_url' => 'links#go'
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

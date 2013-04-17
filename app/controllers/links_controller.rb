@@ -2,7 +2,10 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all
+    if user_signed_in?
+      @links = current_user.links
+    end
+      # @links = Link.find_by_user_id(curre)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +44,11 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(params[:link])
+    if user_signed_in?
+      @link.user= current_user
+    else
+      @link.user= User.find_by_email("guest@guest.guest")
+    end
 
     respond_to do |format|
       if @link.save
@@ -82,6 +90,9 @@ class LinksController < ApplicationController
   end
 
   def go 
+    if (params[:in_url] == "users")
+      puts "WTF"
+    end
     @link = Link.find_by_in_url(params[:in_url])
     redirect_to @link.out_url, status: 302
   end
