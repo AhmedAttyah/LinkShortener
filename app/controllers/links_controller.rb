@@ -4,6 +4,8 @@ class LinksController < ApplicationController
   def index
     if user_signed_in?
       @links = current_user.links
+    else
+      @links= Link.all
     end
       # @links = Link.find_by_user_id(curre)
 
@@ -47,7 +49,7 @@ class LinksController < ApplicationController
     if user_signed_in?
       @link.user= current_user
     else
-      @link.user= User.find_by_email("guest@guest.guest")
+      @link.user= nil
     end
 
     respond_to do |format|
@@ -90,9 +92,6 @@ class LinksController < ApplicationController
   end
 
   def go 
-    if (params[:in_url] == "users")
-      puts "WTF"
-    end
     @link = Link.find_by_in_url(params[:in_url])
     redirect_to @link.out_url, status: 302
   end

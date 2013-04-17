@@ -20,8 +20,13 @@
 	      <a class="brand" href="/">Link Shortener</a>
 	      <div class="nav-collapse collapse">
 	        <ul class="nav">
-	        	<li><%= link_to "Sign in", new_user_session_path %></li>
-	        	<li><%= link_to "Register", new_user_registration_path %></li>
+	        	<% if user_signed_in? %>
+	        		<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+		        	
+		        <% else %>
+		        	<li><%= link_to "Sign in", new_user_session_path %></li>
+		        	<li><%= link_to "Register", new_user_registration_path %></li>
+		        <% end %>
 	        </ul>
 	      </div> 
 	    </div>
@@ -30,7 +35,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="span9"><%= yield %></div>
-			<div class="span3"></div>
+			<div class="span3">
+				<% if (user_signed_in?) %>
+					<div class="alert alert-success">You are signed in as <%= current_user.email %> </div>
+					<%else%>
+					<div class="alert alert-error">Hello Guest!, if you are a member then you are not signed </div>
+				<%end %>
+
+				<br>
+				<p class="text-info">
+					LinkShortener is opensource project developed by AhmedAttyah
+					<%= link_to "Project on Github", "https://github.com/AhmedAttyah/LinkShortener" %>
+				</p>
+			</div>
 		</div>
 	</div>
 </body>
