@@ -4,7 +4,15 @@ gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+group :test do 
+  gem 'cucumber-rails', '1.0.6'
+  gem 'capybara'
+  gem 'nokogiri'
+  gem 'database_cleaner'
+  gem 'factory_girl'
+  gem 'email_spec'
+  gem 'spork'
+end 
 group :production do
   gem 'pg'
 end
